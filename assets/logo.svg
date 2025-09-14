@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="180" viewBox="0 0 640 180">
+  <rect width="640" height="180" fill="#0a0a0a"/>
+  <text x="50" y="110" font-family="Verdana" font-size="48" fill="#7dd3fc">UltraDevice AI</text>
+  <circle cx="560" cy="90" r="42" fill="#111"/>
+  <circle cx="560" cy="90" r="28" fill="#f0f9ff"/>
+  <circle cx="560" cy="90" r="12" fill="#0ea5e9"/>
+</svg>
