@@ -1,0 +1,25 @@
+site_name: UltraDevice AI
+nav:
+  - Home: README.md
+  - Docs:
+    - Overview: docs/overview.md
+    - Safety & Ethics: docs/safety_ethics.md
+    - Roadmap: docs/roadmap.md
+    - Glossary: docs/glossary.md
+  - Specs:
+    - Core: specs/core_architecture.md
+    - Energy: specs/energy_system.md
+    - Power Budget: specs/power_budget.md
+    - AI: specs/ai_module.md
+    - Sensors & Stealth: specs/stealth_and_sensors.md
+    - Environment: specs/environment_adaptation.md
+    - Materials: specs/wearable_materials.md
+    - Evolution: specs/evolution_protocols.md
+    - Communication: specs/communication_system.md
+    - Math Models: specs/math_models.md
+    - DNA Data: specs/dna_data_model.md
+markdown_extensions:
+  - tables
+  - admonition
+  - toc:
+      permalink: true
