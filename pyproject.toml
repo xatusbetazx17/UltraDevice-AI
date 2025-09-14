@@ -1,15 +1,28 @@
 [project]
 name = "ultradevice"
-version = "0.1.0"
-description = "UltraDevice AI — speculative wearable concept + tiny simulator"
+version = "0.2.0"
+description = "UltraDevice AI — speculative wearable concept + simulator (power, duty, harvest)"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{name="Marcelo Collado", email="example@example.com"}]
+authors = [{name="Marcelo Collado"}]
 license = {text = "MIT"}
-dependencies = ["numpy>=1.26", "pydantic>=2.6", "typer>=0.12"]
+dependencies = [
+  "numpy>=1.26",
+  "pydantic>=2.6",
+  "typer>=0.12",
+  "matplotlib>=3.8"
+]
 
 [project.scripts]
 ultradevice = "ultradevice.cli:app"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
