@@ -1,0 +1,41 @@
+{
+  "name": "day_walk",
+  "battery_wh": 15.0,
+  "base_load_w": 1.2,
+  "features": {
+    "sensors": {
+      "on": true,
+      "w": 0.8
+    },
+    "ui": {
+      "on": true,
+      "w": 0.4
+    },
+    "stealth": {
+      "on": false,
+      "w": 0.2
+    },
+    "radio": {
+      "on": true,
+      "w": 0.5
+    }
+  },
+  "harvest": {
+    "solar": {
+      "scale": 0.0015,
+      "irradiance_csv": "data/sky_irradiance_clear.csv"
+    },
+    "kinetic": {
+      "scale": 0.3,
+      "motion_csv": "data/motion_profile_commute.csv"
+    }
+  },
+  "boosts": [
+    {
+      "hour": 17,
+      "burst_w": 10.0,
+      "burst_sec": 45
+    }
+  ],
+  "dt_minutes": 5
+}
