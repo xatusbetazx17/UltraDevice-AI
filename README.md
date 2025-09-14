@@ -119,5 +119,5 @@ See `docs/` and `specs/` for detailed narratives, equations, and constraints:
 ---
 
 ## 🙏 Credits
-- Concept: **Marcelo Collado** ([@xatusbetazx17](https://github.com/xatusbetazx17)) + ChatGPT
+- Concept: **Marcelo Collado** ([@xatusbetazx17](https://github.com/xatusbetazx17)) 
 - License: MIT
