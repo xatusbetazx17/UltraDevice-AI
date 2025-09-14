@@ -96,7 +96,7 @@ You’ll get:
 ---
 
 ## 🙏 Credits
-Concept: **Marcelo Collado** ([@xatusbetazx17](https://github.com/xatusbetazx17)) + ChatGPT  
+Concept: **Marcelo Collado** ([@xatusbetazx17](https://github.com/xatusbetazx17))
 License: MIT
 
 
