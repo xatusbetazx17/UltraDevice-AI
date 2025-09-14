@@ -1,0 +1,15 @@
+[project]
+name = "ultradevice"
+version = "0.1.0"
+description = "UltraDevice AI — speculative wearable concept + tiny simulator"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name="Marcelo Collado", email="example@example.com"}]
+license = {text = "MIT"}
+dependencies = ["numpy>=1.26", "pydantic>=2.6", "typer>=0.12"]
+
+[project.scripts]
+ultradevice = "ultradevice.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
