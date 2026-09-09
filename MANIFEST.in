@@ -1,0 +1,10 @@
+include LICENSE README.md README.es.md pyproject.toml Makefile Dockerfile
+recursive-include src/ultradevice/data *.csv
+recursive-include firmware *.py
+recursive-include hardware *.md *.json
+recursive-include docs *.md
+recursive-include specs *.md
+recursive-include schemas *.json
+recursive-include examples *.json *.md
+recursive-include tests *.py
+recursive-include scripts *.py

@@ -1,5 +1,7 @@
-# Vision Demo Scenario
+# Future vision integration
 
-The user enters low-light outdoors. Policy raises sensor gain, reduces display brightness,
-allocates 0.6 W solar harvest daytime; at night, kinetic harvest dominates if moving.
-Emergency event triggers reserve-boost for 60–120 s, then cooldown.
+No camera inference or object-recognition model is implemented in this branch.
+The included demo exercises device modes and energy policy. To add vision, select a
+camera and host compute platform, implement a measured workload/peripheral adapter,
+and evaluate model accuracy, latency, privacy and power consumption. Do not relabel
+synthetic demo readings as camera results.

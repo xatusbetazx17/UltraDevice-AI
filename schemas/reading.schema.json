@@ -1,0 +1,104 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "seq": {
+      "minimum": 0,
+      "title": "Seq",
+      "type": "integer"
+    },
+    "uptime_ms": {
+      "minimum": 0,
+      "title": "Uptime Ms",
+      "type": "integer"
+    },
+    "temp_c": {
+      "anyOf": [
+        {
+          "maximum": 125,
+          "minimum": -40,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Temp C"
+    },
+    "temp_source": {
+      "enum": [
+        "die",
+        "tmp117",
+        "simulated"
+      ],
+      "title": "Temp Source",
+      "type": "string"
+    },
+    "battery_soc": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Battery Soc"
+    },
+    "load_w": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Load W"
+    },
+    "harvest_w": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Harvest W"
+    },
+    "device_mode": {
+      "enum": [
+        "normal",
+        "conserve",
+        "stealth",
+        "boost",
+        "reserve",
+        "shutdown",
+        "fault"
+      ],
+      "title": "Device Mode",
+      "type": "string"
+    },
+    "sensor_ok": {
+      "title": "Sensor Ok",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "seq",
+    "uptime_ms",
+    "temp_source",
+    "device_mode",
+    "sensor_ok"
+  ],
+  "title": "Reading",
+  "type": "object"
+}

@@ -1,5 +1,7 @@
 # Math Models (Simplified)
 
+> Original design goals, not implemented capabilities. See the [current capability matrix](../docs/capabilities.md) and [model definitions](../docs/models.md) before building.
+
 - Runtime: `T = B / max(P_load - P_harvest, 0)`
 - Duty cycle to reach target runtime `T*`:
   - Let high-power `P_hi`, low-power `P_lo`, harvest `P_h`.

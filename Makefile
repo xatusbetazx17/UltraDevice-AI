@@ -1,15 +1,22 @@
+.PHONY: install test lint run-example demo build
+PYTHON ?= python
+
 install:
-	python -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && pip install -e .
+	$(PYTHON) -m pip install -e '.[dev,plot]'
 
 test:
-	pytest -q
+	$(PYTHON) -m unittest discover -s tests -v
 
 lint:
-	ruff check . || true
-
-typecheck:
-	mypy src || true
+	$(PYTHON) -m ruff check src tests scripts firmware
 
 run-example:
-	ultradevice simulate --scenario examples/scenarios/day_walk.json --out outputs/day_walk.csv
+	ultradevice simulate-physics --scenario examples/scenarios/day_walk.json --out outputs/day_walk.csv
+	ultradevice report --csv outputs/day_walk.csv --out outputs/day_walk.md
 	ultradevice plot --csv outputs/day_walk.csv --out outputs/day_walk.png
+
+demo:
+	ultradevice demo --seconds 95
+
+build:
+	$(PYTHON) -m build

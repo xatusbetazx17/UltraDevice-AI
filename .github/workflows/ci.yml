@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e '.[dev,plot]'
+      - run: python -m ruff check src tests scripts firmware
+      - run: python -m unittest discover -s tests -v
+      - run: python -m compileall -q src firmware
+      - run: python -m ultradevice demo --seconds 95 --out outputs/demo.jsonl
+      - run: python -m ultradevice check-log --input outputs/demo.jsonl
+      - run: python -m ultradevice simulate-physics --scenario examples/scenarios/day_walk.json --out outputs/day.csv
+      - run: python -m ultradevice report --csv outputs/day.csv --out outputs/report.md
+      - run: python -m ultradevice plot --csv outputs/day.csv --out outputs/day.png
+      - run: python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ultradevice-${{ matrix.os }}-${{ matrix.python }}
+          path: |
+            dist/
+            outputs/

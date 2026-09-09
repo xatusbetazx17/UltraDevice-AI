@@ -1,0 +1,62 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "reserve_soc": {
+      "default": 0.2,
+      "exclusiveMaximum": 1,
+      "minimum": 0,
+      "title": "Reserve Soc",
+      "type": "number"
+    },
+    "recover_soc": {
+      "default": 0.25,
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Recover Soc",
+      "type": "number"
+    },
+    "shutdown_soc": {
+      "default": 0.05,
+      "exclusiveMaximum": 1,
+      "minimum": 0,
+      "title": "Shutdown Soc",
+      "type": "number"
+    },
+    "derate_c": {
+      "default": 39.0,
+      "exclusiveMaximum": 85,
+      "exclusiveMinimum": -40,
+      "title": "Derate C",
+      "type": "number"
+    },
+    "shutdown_c": {
+      "default": 42.0,
+      "exclusiveMinimum": -40,
+      "maximum": 85,
+      "title": "Shutdown C",
+      "type": "number"
+    },
+    "boost_max_s": {
+      "default": 10,
+      "exclusiveMinimum": 0,
+      "maximum": 10,
+      "title": "Boost Max S",
+      "type": "number"
+    },
+    "cooldown_s": {
+      "default": 60,
+      "minimum": 60,
+      "title": "Cooldown S",
+      "type": "number"
+    },
+    "stale_after_s": {
+      "default": 3,
+      "exclusiveMinimum": 0,
+      "maximum": 3,
+      "title": "Stale After S",
+      "type": "number"
+    }
+  },
+  "title": "ControllerConfig",
+  "type": "object"
+}

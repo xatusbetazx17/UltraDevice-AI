@@ -1,136 +1,96 @@
-# 🧠 UltraDevice AI — Concept & Tiny Simulator
+# UltraDevice AI — working reference prototype
 
-![CI](https://github.com/xatusbetazx17/UltraDevice-AI/actions/workflows/ci.yml/badge.svg)
+**Author: Marcelo Collado · MIT license · Python 3.10+**
 
-<p align='center'><img src='assets/logo.svg' width='520' alt='UltraDevice AI logo'/></p>
+UltraDevice AI turns the energy management and mode-control ideas on `main` into
+an installable simulator, a desktop device demo, and source code for a Raspberry Pi
+Pico bench prototype. The original inspiration is a futuristic multi-form wearable.
 
-**Author:** Marcelo Collado (GitHub: [@xatusbetazx17](https://github.com/xatusbetazx17))  
-**License:** MIT  
-**Status:** Fictional R&D concept with a small Python simulator for power & thermal-adjacent budgets.
+**This is a software-tested engineering reference, not a finished wearable product.**
+Physical transformation, optical camouflage, self-repairing materials and an unlimited
+energy source are not implemented. No physical board was available for validation.
+See the [capability matrix](docs/capabilities.md) for every original requirement and
+its actual implementation status.
 
-## 📖 Overview
-UltraDevice AI is a **futuristic wearable** inspired by multi‑form devices (Omnitrix‑style), turned into something **engineering‑grounded**:
+## Start without hardware
 
-- Hybrid power: safe, compact baseline + **environmental harvesting** (solar/kinetic/thermal).
-- Bio‑inspired compute (concept) → implemented as **policies & constraints** (no biology here).
-- Robust materials (concept) → documented in specs; simulator models **power trade‑offs**.
-- Intelligence: **predictive/policy AI**, environment sensing toggles, learning profile.
-- Modes: **stealth/camouflage** (mode flag), **emergency boost** (short bursts + cooldown), **reserve** power.
-- Comms (concept) → modeled as power toggles (radio duty).
-- Constraints: needs **recharge cycles**; boosts limited; **safety‑first** guardrails.
-
-> ⚠️ **This repo is safe**: code models power/harvest/duty only. No hazardous, genetic, or nuclear instructions.
-
----
-
-## 📂 Structure
-```
-UltraDevice-AI/
-├── README.md
-├── LICENSE
-├── requirements.txt
-├── pyproject.toml
-├── Makefile
-├── Dockerfile
-├── docs/ … narrative docs
-├── specs/ … technical specs (power budget math, sensors, policies, etc.)
-├── data/ … simple hourly irradiance & motion profiles
-├── examples/
-│   └── scenarios/ … scenario JSONs for simulator
-├── src/ultradevice/ … simulator & CLI
-├── tests/ … unit tests
-└── .github/ … CI & templates
-```
-
----
-
-## 🧪 Tiny Simulator (CLI)
-
-### Install
 ```bash
+git clone --branch codex/working-device-reference https://github.com/xatusbetazx17/UltraDevice-AI.git
+cd UltraDevice-AI
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-pip install -e .
+# Linux/macOS:
+source .venv/bin/activate
+# Windows PowerShell instead: .venv\Scripts\Activate.ps1
+python -m pip install .
+ultradevice doctor
+ultradevice demo --seconds 95 --out outputs/demo.jsonl
+ultradevice check-log --input outputs/demo.jsonl
 ```
 
-### Usage
+The demo runs 95 **virtual** seconds immediately. It exercises normal operation,
+a startup cooldown, a ten-second boost, cooldown rejection, stealth and shutdown.
+All demo sensor values are labeled `simulated`. Logs remain local.
+
+## Simulate a proposed design
+
 ```bash
-# Help
-ultradevice --help
-
-# Quick budgets
-ultradevice runtime --battery-wh 12 --avg-load-w 2.8 --solar-w 0.6 --kinetic-w 0.2
-ultradevice boost --battery-wh 12 --burst-w 10 --burst-sec 60
-ultradevice duty --battery-wh 12 --avg-load-w 3.0 --target-hours 8
-
-# Time-series simulation + plots
-ultradevice simulate --scenario examples/scenarios/day_walk.json --out outputs/day_walk.csv
-ultradevice plot --csv outputs/day_walk.csv --out outputs/day_walk.png
+ultradevice validate-scenario --scenario examples/scenarios/day_walk.json
+ultradevice simulate-physics --scenario examples/scenarios/day_walk.json --out outputs/day.csv
+ultradevice report --csv outputs/day.csv --out outputs/day.md
+python -m pip install '.[plot]'
+ultradevice plot --csv outputs/day.csv --out outputs/day.png
 ```
 
-You’ll get:
-- `outputs/day_walk.csv` (telemetry)
-- `outputs/day_walk_soc.png`, `outputs/day_walk_load.png`, `outputs/day_walk_harvest.png`
+Plots are `day_soc.png`, `day_load.png`, and `day_harvest.png`. The original scenario
+has illustrative high loads: **it does not demonstrate all-day operation**. Reports
+show unserved energy when depletion, current limits or heat reduce delivered power.
+Use [the low-power example](examples/scenarios/bench_reference.json) as an editable
+budget, then replace assumptions with measured data. Relative CSV paths are resolved
+beside the scenario; `data/*.csv` sample profiles also ship inside the Python wheel.
 
----
+## Connect a real prototype
 
-## 🎯 Realism upgrades
-- **Time-series simulator** (5‑min steps) with base load, features, **harvest** and **policy** decisions
-- **Scenario JSONs** so you can vary loads/features/boosts without editing code
-- **Rule-based policy** reduces radio/UI duty when battery is low; blocks boosts at very low SoC
-- **CSV telemetry** + **Matplotlib plots** (SoC, Load, Harvest)
-- **CI, Dependabot, templates, Devcontainer, Dockerfile**
-- **Spanish README** (`README.es.md`) & simple **logo**
+Follow the [parts, wiring and firmware guide](hardware/README.md). The implemented
+hardware target is the original **RP2040 Pico/Pico H, non-W**, powered through USB.
+It measures chip temperature (or an optional TMP117 sensor) and controls the onboard
+LED to demonstrate modes. It does not drive heaters, motors or biological hardware.
 
-> Note: Real wearables usually harvest **milliwatts**; values here are illustrative for demos.
-
----
-
-## 🧭 Roadmap
-- Thermal limit curve & heat‑driven derating
-- Randomized weather/light/activity generators
-- Sensor‑fusion policy experiments
-- Jupyter demo notebook
-
----
-
-## 🙏 Credits
-Concept: **Marcelo Collado** ([@xatusbetazx17](https://github.com/xatusbetazx17))
-License: MIT
-
-
----
-
-## 🔬 Physics mode (battery + thermal)
-Run the simulator with simple **battery** and **thermal** models:
 ```bash
-ultradevice simulate_physics --scenario examples/scenarios/day_walk.json --out outputs/sim_physics.csv
-ultradevice report --csv outputs/sim_physics.csv --out outputs/report.md
-ultradevice plot --csv outputs/sim_physics.csv --out outputs/plot.png
+ultradevice device --port /dev/ttyACM0 --seconds 60 --out outputs/device.jsonl
+# Windows: use the board's COM port, and first install .[hardware].
 ```
 
-## 🧮 Optimizer
-Suggest a uniform high-power duty cycle to hit a target runtime:
+The board has no fuel gauge or power monitor in the baseline assembly. It reports
+`battery_soc`, `load_w` and `harvest_w` as `null`; the host conserves power and refuses
+boost with unknown battery state. Predictions require actual measurements.
+
+## Included
+
+- Correct package layout, command-line interface, wheel packaging and offline demo.
+- Validated scenarios; solar, motion, ambient, cloud, external and thermal-harvest inputs.
+- Recharge, finite storage, discharge-rate limits, exact boost timing and cooldowns.
+- Stable thermal RC integration, losses, interval telemetry and energy reports.
+- Host mode controller with hysteresis, sample freshness checks and latched faults.
+- Bounded USB protocol, Pico firmware, watchdog, stop-button input and TMP117 driver.
+- Local power-history predictor; no trained model, cloud service or API key required.
+- Hash-linked logs, JSON schemas, tests, CI configuration and integration documentation.
+
 ```bash
-ultradevice optimize --battery-wh 12 --P_hi 6 --P_lo 1.2 --harvest-w 0.5 --target-hours 8 --out outputs/optimized.json
+python -m pip install -e '.[dev,plot]'
+python -m unittest discover -s tests -v
+python -m build
 ```
 
+`python -m ultradevice` and `ultradevice` expose the same commands. Historical command
+names such as `simulate_physics`, `size_battery` and `validate_scenario` remain aliases.
 
----
+## For builders and companies
 
-## 🧰 Engineering utilities
-- **Battery sizing:** estimate required Wh & mass for a target runtime.
-  ```bash
-  ultradevice size_battery --target-hours 8 --avg-load-w 3.0 --harvest-w 0.5
-  ```
-- **Scenario validator:** ensure JSON is sane.
-  ```bash
-  ultradevice validate_scenario --scenario examples/scenarios/day_walk.json
-  ```
-- **Random scenario generator:** create a new scenario to stress-test.
-  ```bash
-  ultradevice randomize --out examples/scenarios/random_day.json --seed 42
-  ```
-- **Ambient & clouds:** simulator reads `data/ambient_summer.csv` and `data/cloudiness.csv` to adjust thermal & solar.
-- **Powertrain efficiencies:** battery sees `load/eff_out - harvest*eff_harv` by default (0.90 / 0.80).
+The original [MIT license](LICENSE) is retained, including permission to use, modify
+and distribute the code with its notices. Start with the [integration guide](docs/integration.md),
+[protocol](docs/protocol.md), [model assumptions](docs/models.md) and
+[validation record](docs/validation.md). The [remaining work](docs/roadmap.md) covers
+physical validation and product engineering. Software test success does not certify
+battery safety, skin-contact temperatures, radio behavior or a manufactured device.
+
+[Español](README.es.md) · [CLI examples](examples/usage_cli.md) · [Contributing](CONTRIBUTING.md)

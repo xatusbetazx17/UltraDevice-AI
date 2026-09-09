@@ -1,0 +1,18 @@
+{
+  "name": "illustrative_low_power_bench_budget",
+  "battery_wh": 2.0,
+  "initial_soc": 0.8,
+  "base_load_w": 0.05,
+  "features": {
+    "sensors": {"on": true, "w": 0.01},
+    "ui": {"on": true, "w": 0.01},
+    "radio": {"on": false, "w": 0.04}
+  },
+  "harvest": {"thermal_w": 0.0, "external_w": 0.0},
+  "boosts": [{"hour": 1, "burst_w": 0.2, "burst_sec": 10}],
+  "dt_minutes": 5,
+  "duration_minutes": 1440,
+  "ambient_c": 25,
+  "eff_out": 0.9,
+  "eff_harv": 0.8
+}

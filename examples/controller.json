@@ -1,0 +1,10 @@
+{
+  "reserve_soc": 0.2,
+  "recover_soc": 0.25,
+  "shutdown_soc": 0.05,
+  "derate_c": 39.0,
+  "shutdown_c": 42.0,
+  "boost_max_s": 10,
+  "cooldown_s": 60,
+  "stale_after_s": 3
+}
