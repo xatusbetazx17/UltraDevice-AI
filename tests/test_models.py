@@ -46,7 +46,7 @@ class ValidationTests(unittest.TestCase):
             (path / "sun.csv").write_text("hour,value\n" + "".join(f"{h},1\n" for h in range(24)))
             (path / "scenario.json").write_text('{"battery_wh":1,"base_load_w":1,"harvest":{"solar":{"scale":1,"irradiance_csv":"sun.csv"}}}')
             scenario = load_scenario(path / "scenario.json")
-            self.assertEqual(Path(scenario.harvest.solar.irradiance_csv), path / "sun.csv")
+            self.assertEqual(Path(scenario.harvest.solar.irradiance_csv), (path / "sun.csv").resolve())
 
     def test_seeded_generator_is_valid_and_reproducible(self):
         self.assertEqual(random_scenario(5), random_scenario(5))
