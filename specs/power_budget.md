@@ -1,5 +1,7 @@
 # Power Budget
 
+> Original design goals, not implemented capabilities. See the [current capability matrix](../docs/capabilities.md) and [model definitions](../docs/models.md) before building.
+
 Let:
 - `B` = battery capacity (Wh)
 - `P_load` = average load (W)

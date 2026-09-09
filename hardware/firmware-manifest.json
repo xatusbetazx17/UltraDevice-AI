@@ -1,0 +1,13 @@
+{
+  "format_version": 1,
+  "target": "Raspberry Pi Pico/Pico H RP2040 non-W",
+  "hardware_validation": "not executed",
+  "micropython_version": "must be recorded by the physical builder",
+  "integrity_only": true,
+  "files": {
+    "firmware/pico/main.py": "e5545c1de84932c554dfe8975f9ce596dc6e31128d08079a0b8138bcd739ca63",
+    "firmware/pico/safety.py": "69b89a9c59112d3f64031c45fd0c8980fa848b7ac4f5e306220874219c1d4f06",
+    "firmware/pico/sensors.py": "31abb11c4c1041f00b3e2ba4ee82f5dfa64293acfd39dcb56390bc6c76977574",
+    "firmware/pico/service.py": "0686312497aecc0634447bd73a8bac5818383c3b57debada1313b7edf55b3f7e"
+  }
+}

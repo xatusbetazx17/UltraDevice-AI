@@ -1,6 +1,16 @@
 # Contributing
 
-1. Open an issue describing the change.
-2. Fork and create a feature branch.
-3. Run tests: `pytest -q`.
-4. Open a PR with a clear description and checklist.
+Create a feature branch from the reference branch. Install with
+`python -m pip install -e '.[dev,plot]'`, then run:
+
+```bash
+python -m unittest discover -s tests -v
+python -m compileall -q src firmware
+python -m build
+python scripts/firmware_manifest.py --check
+```
+
+Keep protocol changes versioned and test host/firmware compatibility. Add regression
+tests for changed energy accounting, limits or fault behavior. Preserve the original
+MIT notices. Update the capability matrix when behavior changes and clearly label
+hardware-unverified code. Include measured acceptance records for hardware claims.

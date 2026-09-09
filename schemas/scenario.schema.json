@@ -1,0 +1,259 @@
+{
+  "$defs": {
+    "Boost": {
+      "additionalProperties": false,
+      "properties": {
+        "hour": {
+          "maximum": 23,
+          "minimum": 0,
+          "title": "Hour",
+          "type": "integer"
+        },
+        "minute": {
+          "default": 0,
+          "maximum": 59,
+          "minimum": 0,
+          "title": "Minute",
+          "type": "integer"
+        },
+        "burst_w": {
+          "exclusiveMinimum": 0,
+          "title": "Burst W",
+          "type": "number"
+        },
+        "burst_sec": {
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Burst Sec",
+          "type": "number"
+        }
+      },
+      "required": [
+        "hour",
+        "burst_w",
+        "burst_sec"
+      ],
+      "title": "Boost",
+      "type": "object"
+    },
+    "Feature": {
+      "additionalProperties": false,
+      "properties": {
+        "on": {
+          "default": true,
+          "title": "On",
+          "type": "boolean"
+        },
+        "w": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "W",
+          "type": "number"
+        }
+      },
+      "title": "Feature",
+      "type": "object"
+    },
+    "HarvestCfg": {
+      "additionalProperties": false,
+      "properties": {
+        "solar": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SolarCfg"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kinetic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/KineticCfg"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "thermal_w": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Thermal W",
+          "type": "number"
+        },
+        "external_w": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "External W",
+          "type": "number"
+        }
+      },
+      "title": "HarvestCfg",
+      "type": "object"
+    },
+    "KineticCfg": {
+      "additionalProperties": false,
+      "properties": {
+        "scale": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Scale",
+          "type": "number"
+        },
+        "motion_csv": {
+          "title": "Motion Csv",
+          "type": "string"
+        }
+      },
+      "required": [
+        "motion_csv"
+      ],
+      "title": "KineticCfg",
+      "type": "object"
+    },
+    "SolarCfg": {
+      "additionalProperties": false,
+      "properties": {
+        "scale": {
+          "default": 0.0,
+          "minimum": 0,
+          "title": "Scale",
+          "type": "number"
+        },
+        "irradiance_csv": {
+          "title": "Irradiance Csv",
+          "type": "string"
+        }
+      },
+      "required": [
+        "irradiance_csv"
+      ],
+      "title": "SolarCfg",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "default": "scenario",
+      "title": "Name",
+      "type": "string"
+    },
+    "battery_wh": {
+      "exclusiveMinimum": 0,
+      "title": "Battery Wh",
+      "type": "number"
+    },
+    "initial_soc": {
+      "default": 1.0,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Initial Soc",
+      "type": "number"
+    },
+    "base_load_w": {
+      "minimum": 0,
+      "title": "Base Load W",
+      "type": "number"
+    },
+    "features": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Feature"
+      },
+      "title": "Features",
+      "type": "object"
+    },
+    "harvest": {
+      "$ref": "#/$defs/HarvestCfg"
+    },
+    "boosts": {
+      "items": {
+        "$ref": "#/$defs/Boost"
+      },
+      "title": "Boosts",
+      "type": "array"
+    },
+    "dt_minutes": {
+      "default": 5,
+      "maximum": 60,
+      "minimum": 1,
+      "title": "Dt Minutes",
+      "type": "integer"
+    },
+    "duration_minutes": {
+      "default": 1440,
+      "maximum": 1440,
+      "minimum": 1,
+      "title": "Duration Minutes",
+      "type": "integer"
+    },
+    "boost_cooldown_s": {
+      "default": 300.0,
+      "minimum": 0,
+      "title": "Boost Cooldown S",
+      "type": "number"
+    },
+    "reserve_soc": {
+      "default": 0.1,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Reserve Soc",
+      "type": "number"
+    },
+    "ambient_c": {
+      "default": 25.0,
+      "maximum": 85,
+      "minimum": -40,
+      "title": "Ambient C",
+      "type": "number"
+    },
+    "ambient_csv": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ambient Csv"
+    },
+    "cloudiness_csv": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cloudiness Csv"
+    },
+    "eff_out": {
+      "default": 0.9,
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Eff Out",
+      "type": "number"
+    },
+    "eff_harv": {
+      "default": 0.8,
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Eff Harv",
+      "type": "number"
+    }
+  },
+  "required": [
+    "battery_wh",
+    "base_load_w"
+  ],
+  "title": "Scenario",
+  "type": "object"
+}

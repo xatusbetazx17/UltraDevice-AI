@@ -1,5 +1,7 @@
 # Wearable Materials
 
+> Original design goals, not implemented capabilities. See the [current capability matrix](../docs/capabilities.md) and [model definitions](../docs/models.md) before building.
+
 - **Outer Layer**: Abrasion-resistant weave.
 - **Mid Layer**: Elastic matrix with microencapsulated self-repair resin (fictional concept).
 - **Inner Layer**: Breathable wick for comfort.
