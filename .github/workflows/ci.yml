@@ -27,7 +27,7 @@ jobs:
       - run: python -m ultradevice report --csv outputs/day.csv --out outputs/report.md
       - run: python -m ultradevice plot --csv outputs/day.csv --out outputs/day.png
       - run: python -m build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ultradevice-${{ matrix.os }}-${{ matrix.python }}
           path: |
